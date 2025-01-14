@@ -1,3 +1,5 @@
+import { Tuple } from "@reduxjs/toolkit";
+
 export enum CATEGORIES_ACTION_TYPES {
   FETCH_CATEGORIES_START = "category/FETCH_CATEGORIES_START",
   FETCH_CATEGORIES_SUCCESS = "category/FETCH_CATEGORIES_SUCCESS",
@@ -15,4 +17,8 @@ export type Category = {
   title: string;
   imageUrl: string;
   items: CategoryItem[];
+};
+
+export type CategoryMap = {
+  [key: string]: CategoryItem[];
 };
