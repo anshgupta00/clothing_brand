@@ -5,6 +5,7 @@ import logger from "redux-logger";
 import createSagaMiddleware from "redux-saga";
 
 import { rootSaga } from "./root-saga";
+
 import { rootReducer } from "./root-reducer";
 
 export type RootState = ReturnType<typeof rootReducer>;
@@ -32,11 +33,11 @@ const persistedReducer = persistReducer(persistConfig, rootReducer);
 const middleWares = [
   process.env.NODE_ENV !== "production" && logger,
   sagaMiddleware,
-].filter(Boolean) as Middleware[]; // Simplified filtering with type casting
+].filter((middleware): middleware is Middleware => Boolean(middleware));
 
 const composeEnhancer =
   (process.env.NODE_ENV !== "production" &&
-    typeof window !== "undefined" &&
+    window &&
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__) ||
   compose;
 
