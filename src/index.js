@@ -1,33 +1,35 @@
 import React from "react";
+import { render } from "react-dom";
 import ReactDOM from "react-dom/client"; // Correct import for createRoot
 
-import { render } from "react-dom";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { Elements } from "@stripe/react-stripe-js";
 
 import App from "./App";
-import { store, persistor } from "./store/store";
-import { stripePromise } from "./utilis/firebase/stripe/stripe.utilis";
+import { UserProvider } from "./contexts/user.context";
+import { CategoriesProvider } from "./contexts/categories.context";
+import { CartProvider } from "./contexts/cart.context";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import "./index.scss";
-
-import reportWebVitals from "./reportWebVitals";
+const client = new ApolloClient({
+  uri: "https://crwn-clothing.com/",
+  cache: new InMemoryCache(),
+});
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-        <BrowserRouter>
-          <Elements stripe={stripePromise}>
-            <App />
-          </Elements>
-        </BrowserRouter>
-      </PersistGate>
-    </Provider>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <UserProvider>
+          <CategoriesProvider>
+            <CartProvider>
+              <App />
+            </CartProvider>
+          </CategoriesProvider>
+        </UserProvider>
+      </BrowserRouter>
+    </ApolloProvider>
   </React.StrictMode>
 );
-reportWebVitals();
