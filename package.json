@@ -41,7 +41,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -64,9 +66,11 @@
   "devDependencies": {
     "babel-plugin-macros": "^3.1.0",
     "css-loader": "^7.1.2",
+    "gh-pages": "^6.3.0",
     "sass": "^1.83.0",
     "sass-loader": "^16.0.4",
     "style-loader": "^4.0.0"
   },
-  "proxy": "http://localhost:3000/"
+  "proxy": "http://localhost:3000/",
+  "homepage": "https://anshgupta00.github.io/clothing_brand"
 }
